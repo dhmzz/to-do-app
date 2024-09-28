@@ -26,7 +26,7 @@
                 </el-dropdown>
             </el-card>
             <div style="max-width: 800px; margin-top: 20px; margin-left: 5px;">
-                <el-button type="danger" size="small" @click="handleDeleteChecklist(item.id)">Delete</el-button>
+                <el-button type="danger" size="small" @click="openDeleteListDialog(item.id)">Delete</el-button>
                 <!-- <el-button type="success" size="small" @click="handleDeleteDetail(item.id)">-</el-button> -->
             </div>
         </div>
@@ -40,11 +40,11 @@
         </span>
     </el-dialog>
 
-    <el-dialog title="Are you sure to delete this data?" v-model="addListDialogVisible">
+    <el-dialog title="Are you sure to delete this data?" v-model="addDeleteConfirmVisible">
         <!-- <el-input v-model="newChecklistName" placeholder="Enter checklist name"></el-input> -->
         <span slot="footer" class="dialog-footer">
-            <el-button @click="addListDialogVisible = false">Cancel</el-button>
-            <el-button type="primary" @click="handleAddChecklist">Yes</el-button>
+            <el-button @click="addDeleteConfirmVisible = false">Cancel</el-button>
+            <el-button type="primary" @click="handleDeleteChecklist(item.id)">Yes</el-button>
         </span>
     </el-dialog>
 </template>
@@ -56,16 +56,25 @@ import { useChecklistStore } from '../../stores/ToDoAp-store';
 const ToDoApp = useChecklistStore();
 
 const addListDialogVisible = ref(false);
+const addDeleteConfirmVisible = ref(false);
+const idCheckSelected = ref(0);
 const newChecklistName = ref('');
 
-const openAddListDialog = () => {
+const openAddListDialog = (id:number) => {
     addListDialogVisible.value = true;
+    idCheckSelected.value = id;
+};
+
+const openDeleteListDialog = () => {
+    addDeleteConfirmVisible.value = true;
 };
 
 const handleDeleteChecklist = async(id:number) => {
     try {
-        await ToDoApp.handleDeleteChecklist(id);
+        await ToDoApp.handleDeleteChecklist(idCheckSelected.value);
         await ToDoApp.handleGetChecklist();
+
+        idCheckSelected.value = 0 //set to default
     } catch (error) {
         console.error('Gagal menambahkan checklist:', error);
     }
