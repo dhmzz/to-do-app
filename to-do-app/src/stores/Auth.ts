@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import apiClient from '../utils/apiClient'
 import { baseApi, setToken } from './Global'
 import { ElMessage } from 'element-plus'
+import router from '../router';
 
 export const useAuth = defineStore('auth', {
     state: () => ({
@@ -50,6 +51,8 @@ export const useAuth = defineStore('auth', {
                         type: 'success',
                     });
                     setToken(res.data.data.token)
+
+                    router.push('/ToDoApp')
                 }
             } catch (error) {
                 ElMessage({

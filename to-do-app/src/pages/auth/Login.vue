@@ -6,8 +6,8 @@
             </div>
         </template>
         <el-input type="string" placeholder="Username" v-model="authStore.account.username"/>
-        <el-input type="password" placeholder="Password" v-model="authStore.account.pass"/>
-        <el-button type="primary" class="mt-3" @click="handleLogin">Login</el-button>
+        <el-input type="password" placeholder="Password" v-model="authStore.account.pass" style="margin-top: 10px"/>
+        <el-button type="primary" class="mt-3" @click="handleLogin" style="margin-top: 10px">Login</el-button>
     </el-card>
 </template>
 

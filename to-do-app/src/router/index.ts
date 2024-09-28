@@ -7,7 +7,7 @@ import ToDoApp from '../pages/screen/ToDoApp.vue'
 // Definisikan rute-rute aplikasi
 const routes: Array<RouteRecordRaw> = [
     {
-        path: '/SignIn',
+        path: '/',
         name: 'SignIn',
         component: Login
     },
